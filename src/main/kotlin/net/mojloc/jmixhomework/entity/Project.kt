@@ -1,7 +1,6 @@
 package net.mojloc.jmixhomework.entity
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue
-import io.jmix.core.metamodel.annotation.InstanceName
 import io.jmix.core.metamodel.annotation.JmixEntity
 import io.jmix.data.impl.lazyloading.NotInstantiatedList
 import java.util.*
@@ -9,9 +8,11 @@ import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @JmixEntity
-@Table(name = "EMPLYEE")
+@Table(name = "PROJECT", uniqueConstraints = [
+    UniqueConstraint(name = "IDX_PROJECT_UNQ_NAME", columnNames = ["PROJECT_NAME"])
+])
 @Entity
-open class Emplyee {
+open class Project {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
@@ -21,23 +22,15 @@ open class Emplyee {
     @Version
     var version: Int? = null
 
-    @InstanceName
-    @Column(name = "FIRST_NAME", nullable = false)
+    @Column(name = "PROJECT_NAME", nullable = false)
     @NotNull
-    var firstName: String? = null
-
-    @Column(name = "LAST_NAME", nullable = false)
-    @NotNull
-    var lastName: String? = null
-
-    @Column(name = "PATRONYMIC")
-    var patronymic: String? = null
+    var projectName: String? = null
 
     @JoinTable(
         name = "PROJECT_EMPLYEE_LINK",
-        joinColumns = [JoinColumn(name = "EMPLYEE_ID")],
-        inverseJoinColumns = [JoinColumn(name = "PROJECT_ID")]
+        joinColumns = [JoinColumn(name = "PROJECT_ID")],
+        inverseJoinColumns = [JoinColumn(name = "EMPLYEE_ID")]
     )
     @ManyToMany
-    var projects: MutableList<Project> = NotInstantiatedList()
+    var employees: MutableList<Emplyee> = NotInstantiatedList()
 }
