@@ -1,6 +1,7 @@
 package net.mojloc.jmixhomework.entity
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue
+import io.jmix.core.metamodel.annotation.DependsOnProperties
 import io.jmix.core.metamodel.annotation.InstanceName
 import io.jmix.core.metamodel.annotation.JmixEntity
 import io.jmix.data.impl.lazyloading.NotInstantiatedList
@@ -21,7 +22,6 @@ open class Emplyee {
     @Version
     var version: Int? = null
 
-    @InstanceName
     @Column(name = "FIRST_NAME", nullable = false)
     @NotNull
     var firstName: String? = null
@@ -40,4 +40,8 @@ open class Emplyee {
     )
     @ManyToMany
     var projects: MutableList<Project> = NotInstantiatedList()
+
+    @InstanceName
+    @DependsOnProperties("lastName", "firstName")
+    fun getInstanceName(): String = "${lastName ?: ""} ${firstName ?: ""}".trim()
 }
