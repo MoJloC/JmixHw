@@ -19,7 +19,6 @@ class ProjectEdit : StandardEditor<Project>() {
     @Autowired
     private lateinit var projectDc: InstanceContainer<Project>
 
-
     @Install(to = "emplyeesTable.isInProjectTeam", subject = "columnGenerator")
     private fun emplyeesTableIsInProjectTeamColumnGenerator(emplyee: Emplyee?): Component {
         var checkBox: CheckBox = uiComponents.create(CheckBox.NAME)
@@ -29,12 +28,10 @@ class ProjectEdit : StandardEditor<Project>() {
             run {
                 if (isEmployeeInProjectTeam(emplyee) == true) {
                     println("True!")
-                    projectDc.item.employees.remove(emplyee)
+                    emplyee?.projects?.remove(projectDc.item)
                 } else {
                     println("False!")
-                    if (emplyee != null) {
-                        projectDc.item.employees.add(emplyee)
-                    }
+                    emplyee?.projects?.add(projectDc.item)
                 }
             }
         }
