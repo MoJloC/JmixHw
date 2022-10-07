@@ -29,6 +29,7 @@ class ProjectEdit : StandardEditor<Project>() {
                 if (isEmployeeInProjectTeam(emplyee) == true) {
                     println("True!")
                     emplyee?.projects?.remove(projectDc.item)
+                    projectDc.item.employees.remove(emplyee)
                 } else {
                     println("False!")
                     emplyee?.projects?.add(projectDc.item)
