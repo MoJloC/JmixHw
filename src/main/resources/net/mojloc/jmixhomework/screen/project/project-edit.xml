@@ -5,7 +5,11 @@
     <data>
         <instance id="projectDc"
                   class="net.mojloc.jmixhomework.entity.Project">
-            <fetchPlan extends="_base"/>
+<!--            <fetchPlan extends="_base"/>-->
+            <fetchPlan>
+                <property name="projectName" />
+                <property name="employees"/>
+            </fetchPlan>
             <loader/>
         </instance>
         <collection id="emplyeesDc" class="net.mojloc.jmixhomework.entity.Emplyee">
@@ -43,7 +47,7 @@
             <button id="closeBtn" action="windowClose"/>
         </hbox>
         <table id="emplyeesTable"
-               width="auto"
+               width="50%"
                dataContainer="emplyeesDc"
                caption="msg://emplyeesTable.caption"
                stylename="borderless">
@@ -51,6 +55,7 @@
                 <column id="firstName"/>
                 <column id="lastName"/>
                 <column id="patronymic"/>
+                <column id="isInProjectTeam" caption="msg://isInProjectTeam.caption"/>
             </columns>
         </table>
     </layout>
